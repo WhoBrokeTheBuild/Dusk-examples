@@ -2,6 +2,6 @@
 
 int main(int argc, char** argv)
 {
-    dusk::PrintHello();
+    dusk::PrintVersion();
     return 0;
 }
