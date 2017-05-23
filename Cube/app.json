@@ -1,0 +1,28 @@
+{
+    "Window": {
+        "Width": 640,
+        "Height": 480,
+        "Title": "Dusk - Cube Example"
+    },
+    "Scenes": [
+        {
+            "Name": "default_scn",
+            "Actors": [
+                {
+                    "Name": "cube_act",
+                    "Position": [ 0, 0, 0],
+                    "Components": [
+                        {
+                            "Type": "Mesh",
+                            "File": "../assets/cube/cube.obj"
+                        },
+                        {
+                            "Type": "Script",
+                            "File": "app.lua"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
