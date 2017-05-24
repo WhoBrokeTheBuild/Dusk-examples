@@ -24,6 +24,14 @@
     "Scenes": [
         {
             "Name": "default_scene",
+            "StartCamera": "default_camera",
+            "Cameras": [
+                {
+                    "Name": "default_camera",
+                    "Position": [ 3, 3, 3 ],
+                    "Forward": [ -1, -1, -1 ]
+                }
+            ],
             "Actors": [
                 {
                     "Name": "cube_actor",
