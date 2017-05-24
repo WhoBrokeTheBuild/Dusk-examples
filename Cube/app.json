@@ -4,16 +4,34 @@
         "Height": 480,
         "Title": "Dusk - Cube Example"
     },
+    "Shaders": [
+        {
+            "Name": "default_shader",
+            "BindData": [],
+            "Files": [
+                {
+                    "Type": "Vertex",
+                    "File": "default.vs.glsl"
+                },
+                {
+                    "Type": "Fragment",
+                    "File": "default.fs.glsl"
+                }
+            ]
+        }
+    ],
+    "StartScene": "default_scene",
     "Scenes": [
         {
-            "Name": "default_scn",
+            "Name": "default_scene",
             "Actors": [
                 {
-                    "Name": "cube_act",
+                    "Name": "cube_actor",
                     "Position": [ 0, 0, 0],
                     "Components": [
                         {
                             "Type": "Mesh",
+                            "Shader": "default_shader",
                             "File": "../assets/cube/cube.obj"
                         },
                         {
