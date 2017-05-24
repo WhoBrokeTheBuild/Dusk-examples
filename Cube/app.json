@@ -40,7 +40,7 @@
                         {
                             "Type": "Mesh",
                             "Shader": "default_shader",
-                            "File": "../assets/cube/cube.obj"
+                            "File": "../assets/models/cube/cube.obj"
                         },
                         {
                             "Type": "Script",

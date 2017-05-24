@@ -4,7 +4,7 @@ layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec3 in_normal;
 layout(location = 2) in vec2 in_texcoord;
 
-#include ../shaders/transform_data.inc.glsl
+#include ../assets/shaders/transform_data.inc.glsl
 
 out vec3 position;
 out vec3 normal;
