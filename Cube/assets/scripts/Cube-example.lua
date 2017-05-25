@@ -1,6 +1,5 @@
 
-local scene = Dusk.GetScene("default_scene")
-local cube = scene:GetActor("cube_actor")
+local app = Dusk.GetApp()
 
 cube:AddEventListener("Update", function()
     local x, y, z = cube:GetRotation()
