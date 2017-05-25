@@ -11,11 +11,11 @@
             "Files": [
                 {
                     "Type": "Vertex",
-                    "File": "default.vs.glsl"
+                    "File": "assets/shaders/default.vs.glsl"
                 },
                 {
                     "Type": "Fragment",
-                    "File": "default.fs.glsl"
+                    "File": "assets/shaders/default.fs.glsl"
                 }
             ]
         }
@@ -40,11 +40,11 @@
                         {
                             "Type": "Mesh",
                             "Shader": "default_shader",
-                            "File": "../assets/models/cube/cube.obj"
+                            "File": "assets/models/cube/cube.obj"
                         },
                         {
                             "Type": "Script",
-                            "File": "app.lua"
+                            "File": "assets/scripts/Cube-example.lua"
                         }
                     ]
                 }
