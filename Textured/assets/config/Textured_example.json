@@ -2,20 +2,20 @@
     "Window": {
         "Width": 640,
         "Height": 480,
-        "Title": "Dusk - Cube Example"
+        "Title": "Dusk - Textured Example"
     },
     "Shaders": [
         {
             "Name": "default_shader",
-            "BindData": [],
+            "BindData": [ "LightingData" ],
             "Files": [
                 {
                     "Type": "Vertex",
-                    "File": "assets/shaders/default.vs.glsl"
+                    "File": "assets/shaders/Textured_default.vs.glsl"
                 },
                 {
                     "Type": "Fragment",
-                    "File": "assets/shaders/default.fs.glsl"
+                    "File": "assets/shaders/Textured_default.fs.glsl"
                 }
             ]
         }
@@ -28,23 +28,24 @@
             "Cameras": [
                 {
                     "Name": "default_camera",
-                    "Position": [ 3, 3, 3 ],
+                    "Position": [ 2, 2, 2 ],
                     "Forward": [ -1, -1, -1 ]
                 }
             ],
             "Actors": [
                 {
-                    "Name": "cube_actor",
+                    "Name": "main_actor",
                     "Position": [ 0, 0, 0],
                     "Components": [
                         {
                             "Type": "Mesh",
                             "Shader": "default_shader",
-                            "File": "assets/models/cube/cube.obj"
+                            "File": "assets/models/globe/globe.obj",
+                            "_File": "assets/models/crate/crate.obj"
                         },
                         {
                             "Type": "Script",
-                            "File": "assets/scripts/Cube-example.lua"
+                            "File": "assets/scripts/Textured_example.lua"
                         }
                     ]
                 }

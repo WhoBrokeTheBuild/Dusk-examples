@@ -1,0 +1,54 @@
+{
+    "Window": {
+        "Width": 640,
+        "Height": 480,
+        "Title": "Dusk - Cube Example"
+    },
+    "Shaders": [
+        {
+            "Name": "default_shader",
+            "BindData": [],
+            "Files": [
+                {
+                    "Type": "Vertex",
+                    "File": "assets/shaders/Cube_default.vs.glsl"
+                },
+                {
+                    "Type": "Fragment",
+                    "File": "assets/shaders/Cube_default.fs.glsl"
+                }
+            ]
+        }
+    ],
+    "StartScene": "default_scene",
+    "Scenes": [
+        {
+            "Name": "default_scene",
+            "StartCamera": "default_camera",
+            "Cameras": [
+                {
+                    "Name": "default_camera",
+                    "Position": [ 3, 3, 3 ],
+                    "Forward": [ -1, -1, -1 ]
+                }
+            ],
+            "Actors": [
+                {
+                    "Name": "cube_actor",
+                    "Position": [ 0, 0, 0],
+                    "Components": [
+                        {
+                            "Type": "Mesh",
+                            "Shader": "default_shader",
+                            "File": "assets/models/cube/cube.obj"
+                        },
+                        {
+                            "Type": "Script",
+                            "File": "assets/scripts/Cube_example.lua"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

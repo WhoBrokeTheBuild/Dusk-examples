@@ -1,0 +1,54 @@
+{
+    "Window": {
+        "Width": 640,
+        "Height": 480,
+        "Title": "Dusk - Lighting Example"
+    },
+    "Shaders": [
+        {
+            "Name": "default_shader",
+            "BindData": [ "LightingData" ],
+            "Files": [
+                {
+                    "Type": "Vertex",
+                    "File": "assets/shaders/Lighting_default.vs.glsl"
+                },
+                {
+                    "Type": "Fragment",
+                    "File": "assets/shaders/Lighting_default.fs.glsl"
+                }
+            ]
+        }
+    ],
+    "StartScene": "default_scene",
+    "Scenes": [
+        {
+            "Name": "default_scene",
+            "StartCamera": "default_camera",
+            "Cameras": [
+                {
+                    "Name": "default_camera",
+                    "Position": [ 3, 3, 3 ],
+                    "Forward": [ -1, -1, -1 ]
+                }
+            ],
+            "Actors": [
+                {
+                    "Name": "main_actor",
+                    "Position": [ 0, 0, 0],
+                    "Components": [
+                        {
+                            "Type": "Mesh",
+                            "Shader": "default_shader",
+                            "File": "assets/models/monkey/monkey.obj"
+                        },
+                        {
+                            "Type": "Script",
+                            "File": "assets/scripts/Lighting_example.lua"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
