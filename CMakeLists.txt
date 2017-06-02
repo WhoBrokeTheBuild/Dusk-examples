@@ -9,12 +9,15 @@ MACRO(DUSK_EXAMPLE name)
 
     SET(${name}_OUT ${name}${EXT})
     SET(${name}_SOURCES ${ARGN})
+    FILE(GLOB_RECURSE ${name}_ASSETS "assets/*")
 
-    ADD_EXECUTABLE(${${name}_OUT} ${${name}_SOURCES})
+    ADD_EXECUTABLE(${${name}_OUT} ${${name}_SOURCES} ${${name}_ASSETS})
     TARGET_LINK_LIBRARIES(${${name}_OUT} Dusk)
 
+    # Set IDE folders
     SET_TARGET_PROPERTIES(${${name}_OUT} PROPERTIES FOLDER "examples")
     SOURCE_GROUP("src" FILES ${${name}_SOURCES})
+    SOURCE_GROUP("assets" FILES ${${name}_ASSETS})
 
     # Copy assets to build directory
     ADD_CUSTOM_TARGET(copy-${name}-assets)
@@ -25,14 +28,21 @@ MACRO(DUSK_EXAMPLE name)
             copy_directory ${PROJECT_SOURCE_DIR}/assets ${CMAKE_BINARY_DIR}/assets
     )
 
-    IF(UNIX)
-        ADD_CUSTOM_TARGET(
-            run-${name}
-            COMMAND $<TARGET_FILE:${${name}_OUT}>
-            DEPENDS ${${name}_OUT}
-            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        )
-    ENDIF()
+    ADD_CUSTOM_TARGET(
+        run-${name}
+        COMMAND $<TARGET_FILE:${${name}_OUT}>
+        DEPENDS ${${name}_OUT}
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    )
+
+    SET_TARGET_PROPERTIES(
+        copy-${name}-assets
+        run-${name}
+        PROPERTIES FOLDER "automation"
+    )
+
+    SET_TARGET_PROPERTIES(${${name}_OUT}
+        PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 ENDMACRO()
 
@@ -42,6 +52,11 @@ ADD_CUSTOM_COMMAND(
     TARGET copy-example-assets PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E
         copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets ${CMAKE_BINARY_DIR}/assets
+)
+
+SET_TARGET_PROPERTIES(
+    copy-example-assets
+    PROPERTIES FOLDER "automation"
 )
 
 ADD_SUBDIRECTORY(Cube)
