@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 
     dusk::Shader::DefineData("LightingData", sizeof(LightingData));
 
-    app.LoadConfig("assets/config/Textured_example.json");
+    app.LoadConfig("assets/config/Textured/app.json");
     app.AddEventListener((dusk::EventID)dusk::App::Events::UPDATE, &Update);
 
     app.Run();

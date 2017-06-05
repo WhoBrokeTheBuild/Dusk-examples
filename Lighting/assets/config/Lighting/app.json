@@ -11,11 +11,11 @@
             "Files": [
                 {
                     "Type": "Vertex",
-                    "File": "assets/shaders/Lighting_default.vs.glsl"
+                    "File": "assets/shaders/Lighting/default.vs.glsl"
                 },
                 {
                     "Type": "Fragment",
-                    "File": "assets/shaders/Lighting_default.fs.glsl"
+                    "File": "assets/shaders/Lighting/default.fs.glsl"
                 }
             ]
         }
@@ -44,7 +44,7 @@
                         },
                         {
                             "Type": "Script",
-                            "File": "assets/scripts/Lighting_example.lua"
+                            "File": "assets/scripts/Lighting/rotate.lua"
                         }
                     ]
                 }

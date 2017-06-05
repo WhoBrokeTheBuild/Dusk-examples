@@ -11,11 +11,11 @@
             "Files": [
                 {
                     "Type": "Vertex",
-                    "File": "assets/shaders/Textured_default.vs.glsl"
+                    "File": "assets/shaders/Textured/default.vs.glsl"
                 },
                 {
                     "Type": "Fragment",
-                    "File": "assets/shaders/Textured_default.fs.glsl"
+                    "File": "assets/shaders/Textured/default.fs.glsl"
                 }
             ]
         }
@@ -28,7 +28,7 @@
             "Cameras": [
                 {
                     "Name": "default_camera",
-                    "Position": [ 2, 2, 2 ],
+                    "Position": [ 1.5, 1.5, 1.5 ],
                     "Forward": [ -1, -1, -1 ]
                 }
             ],
@@ -40,12 +40,11 @@
                         {
                             "Type": "Mesh",
                             "Shader": "default_shader",
-                            "File": "assets/models/globe/globe.obj",
-                            "_File": "assets/models/crate/crate.obj"
+                            "File": "assets/models/globe/globe.obj"
                         },
                         {
                             "Type": "Script",
-                            "File": "assets/scripts/Textured_example.lua"
+                            "File": "assets/scripts/Textured/rotate.lua"
                         }
                     ]
                 }

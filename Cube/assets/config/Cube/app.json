@@ -11,11 +11,11 @@
             "Files": [
                 {
                     "Type": "Vertex",
-                    "File": "assets/shaders/Cube_default.vs.glsl"
+                    "File": "assets/shaders/Cube/default.vs.glsl"
                 },
                 {
                     "Type": "Fragment",
-                    "File": "assets/shaders/Cube_default.fs.glsl"
+                    "File": "assets/shaders/Cube/default.fs.glsl"
                 }
             ]
         }
@@ -34,7 +34,7 @@
             ],
             "Actors": [
                 {
-                    "Name": "cube_actor",
+                    "Name": "main_actor",
                     "Position": [ 0, 0, 0],
                     "Components": [
                         {
@@ -44,7 +44,7 @@
                         },
                         {
                             "Type": "Script",
-                            "File": "assets/scripts/Cube_example.lua"
+                            "File": "assets/scripts/Cube/rotate.lua"
                         }
                     ]
                 }
