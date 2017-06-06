@@ -1,0 +1,55 @@
+{
+    "Window": {
+        "Width": 1024,
+        "Height": 768,
+        "Title": "Dusk - Flocking Example"
+    },
+    "Shaders": [
+        {
+            "Name": "default_shader",
+            "BindData": [],
+            "Files": [
+                {
+                    "Type": "Vertex",
+                    "File": "assets/shaders/Flocking/default.vs.glsl"
+                },
+                {
+                    "Type": "Fragment",
+                    "File": "assets/shaders/Flocking/default.fs.glsl"
+                }
+            ]
+        }
+    ],
+    "StartScene": "default_scene",
+    "Scenes": [
+        {
+            "Name": "default_scene",
+            "StartCamera": "default_camera",
+            "Cameras": [
+                {
+                    "Name": "default_camera",
+                    "Position": [ 100, 100, 100 ],
+                    "Forward": [ -1, -1, -1 ],
+                    "Clip": [0.1, 1000.0]
+                }
+            ],
+            "Actors": [
+                {
+                    "Name": "main_actor",
+                    "Position": [ 0, 0, 0],
+                    "Components": [
+                        {
+                            "Type": "Mesh",
+                            "Shader": "default_shader",
+                            "File": "assets/models/cube/cube.obj"
+                        },
+                        {
+                            "Type": "Script",
+                            "File": "assets/scripts/Cube/rotate.lua"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

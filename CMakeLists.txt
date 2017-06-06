@@ -23,6 +23,7 @@ MACRO(DUSK_EXAMPLE name)
     ADD_CUSTOM_TARGET(copy-${name}-assets)
     ADD_DEPENDENCIES(${${name}_OUT} copy-${name}-assets copy-example-assets)
     ADD_CUSTOM_COMMAND(
+        OUTPUT
         TARGET copy-${name}-assets PRE_BUILD
         COMMAND ${CMAKE_COMMAND} -E
             copy_directory ${PROJECT_SOURCE_DIR}/assets ${CMAKE_BINARY_DIR}/assets
@@ -49,6 +50,7 @@ ENDMACRO()
 # Copy example projects shared assets folder
 ADD_CUSTOM_TARGET(copy-example-assets)
 ADD_CUSTOM_COMMAND(
+    OUTPUT 
     TARGET copy-example-assets PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E
         copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets ${CMAKE_BINARY_DIR}/assets
@@ -62,3 +64,4 @@ SET_TARGET_PROPERTIES(
 ADD_SUBDIRECTORY(Cube)
 ADD_SUBDIRECTORY(Lighting)
 ADD_SUBDIRECTORY(Textured)
+ADD_SUBDIRECTORY(Flocking)
