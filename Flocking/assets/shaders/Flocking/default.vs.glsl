@@ -12,6 +12,7 @@ layout(std140) uniform LightingData
 } _LightingData;
 
 #include ../data/transform.inc.glsl
+#include ../data/material.inc.glsl
 
 out vec4 p_Position;
 out vec4 p_Normal;

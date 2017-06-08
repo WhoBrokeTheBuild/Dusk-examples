@@ -1,5 +1,8 @@
 #version 330 core
 
+#include ../data/transform.inc.glsl
+#include ../data/material.inc.glsl
+
 in vec4 p_Position;
 in vec4 p_Normal;
 in vec2 p_TexCoord;
@@ -11,16 +14,47 @@ out vec4 o_Color;
 
 void main()
 {
-    vec3 color = vec3(0.102, 0.537, 0.133);
+    vec3 ambient, diffuse, specular;
+    vec4 normal;
 
-    vec3 ambient = 0.1 * color;
+    normal = normalize(p_Normal);
+    if (_MaterialData.HasBumpMap)
+    {
+        normal = _TransformData.Model * (texture(_BumpMap, p_TexCoord).rgba * 2.0 - 1.0);
+    }
 
-    float diff    = max(dot(p_Normal.xyz, p_LightDir), 0.0);
-    vec3  diffuse = diff * color;
+    if (_MaterialData.HasAmbientMap)
+    {
+        ambient = texture(_AmbientMap, p_TexCoord).rgb;
+    }
+    else
+    {
+        ambient = _MaterialData.Ambient.rgb;
+    }
 
-    vec3  halfway_dir = normalize(p_LightDir + p_ViewDir);
-    float spec        = pow(max(dot(p_Normal.xyz, halfway_dir), 0.0), 16);
-    vec3  specular    = spec * color;
+    float diff = max(0.0, dot(normal.xyz, p_LightDir));
+    diffuse    = diff * _MaterialData.Diffuse.rgb;
+
+    if (_MaterialData.HasDiffuseMap)
+    {
+        diffuse = texture(_DiffuseMap, p_TexCoord).rgb;
+    }
+
+    vec3  halfwayDir = normalize(p_LightDir + p_ViewDir);
+    float spec       = max(0.0, dot(normal.xyz, halfwayDir));
+    if (_MaterialData.Shininess > 0)
+    {
+        spec = pow(spec, _MaterialData.Shininess);
+    }
+
+    if (_MaterialData.HasSpecularMap)
+    {
+        specular = spec * texture(_SpecularMap, p_TexCoord).rgb;
+    }
+    else
+    {
+        specular = vec3(spec);
+    }
 
     o_Color = vec4(ambient + diffuse + specular, 1.0);
 }
