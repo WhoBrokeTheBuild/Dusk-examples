@@ -8,9 +8,11 @@ function update(data)
 end
 
 function free(data)
+    print("Removing event listeners")
     actor:RemoveEventListener(actor.Events.UPDATE, "update")
-    actor:RemoveEventListener(actor.Events.FREE, "free")
+    actor:RemoveEventListener(actor.Events.FREE_START, "free")
+    print("done")
 end
 
 actor:AddEventListener(actor.Events.UPDATE, "update")
-actor:AddEventListener(actor.Events.FREE, "free")
+actor:AddEventListener(actor.Events.FREE_START, "free")

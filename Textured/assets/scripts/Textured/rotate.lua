@@ -3,7 +3,7 @@ local actor = Dusk.GetComponent():GetActor()
 
 function update(data)
     local x, y, z = actor:GetRotation()
-    y = y + (50.0 * data.Delta)
+    y = y + (10.0 * data.Delta)
     actor:SetRotation(x, y, z)
 end
 
