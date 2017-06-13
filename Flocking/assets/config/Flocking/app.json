@@ -20,66 +20,21 @@
             ]
         }
     ],
-    "StartScene": "test1_scene",
+    "StartScene": "default_scene",
     "Scenes": [
         {
-            "Name": "test1_scene",
-            "Scripts": [ "assets/scripts/Flocking/scene1_timer.lua" ],
-            "StartCamera": "default_camera",
+            "Name": "default_scene",
+            "Scripts": [ "assets/scripts/Flocking/default_scene.lua" ],
+            "StartCamera": "default",
             "Cameras": [
                 {
-                    "Name": "default_camera",
-                    "Position": [ 10, 10, 10 ],
+                    "Name": "default",
+                    "Position": [ 150, 150, 150 ],
                     "Forward": [ -1, -1, -1 ],
                     "Clip": [0.1, 1000.0]
                 }
             ],
             "Actors": [
-                {
-                    "Name": "main_actor",
-                    "Position": [ 0, 0, 0],
-                    "Components": [
-                        {
-                            "Type": "Mesh",
-                            "Shader": "default_shader",
-                            "File": "assets/models/crate/crate.obj"
-                        },
-                        {
-                            "Type": "Script",
-                            "File": "assets/scripts/Flocking/movement.lua"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "Name": "test2_scene",
-            "Scripts": [ "assets/scripts/Flocking/scene2_timer.lua" ],
-            "StartCamera": "default_camera",
-            "Cameras": [
-                {
-                    "Name": "default_camera",
-                    "Position": [ 10, 10, 10 ],
-                    "Forward": [ -1, -1, -1 ],
-                    "Clip": [0.1, 1000.0]
-                }
-            ],
-            "Actors": [
-                {
-                    "Name": "main_actor",
-                    "Position": [ 0, 0, 0],
-                    "Components": [
-                        {
-                            "Type": "Mesh",
-                            "Shader": "default_shader",
-                            "File": "assets/models/globe/globe.obj"
-                        },
-                        {
-                            "Type": "Script",
-                            "File": "assets/scripts/Flocking/movement.lua"
-                        }
-                    ]
-                }
             ]
         }
     ]

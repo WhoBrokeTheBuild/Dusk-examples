@@ -56,5 +56,6 @@ void main()
         specular = vec3(spec);
     }
 
-    o_Color = vec4(ambient + diffuse + specular, 1.0);
+    //o_Color = vec4(ambient + diffuse + specular, 1.0);
+    o_Color = vec4(1, 0, 0, 1.0);
 }
