@@ -29,7 +29,7 @@
             "Cameras": [
                 {
                     "Name": "default",
-                    "Position": [ 150, 150, 150 ],
+                    "Position": [ 400, 400, 400 ],
                     "Forward": [ -1, -1, -1 ],
                     "Clip": [0.1, 1000.0]
                 }
