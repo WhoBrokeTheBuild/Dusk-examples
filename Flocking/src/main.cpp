@@ -2,8 +2,18 @@
 #include <sstream>
 #include <random>
 
-const unsigned int BOID_COUNT = 500;
+const unsigned int BOID_COUNT = 100;
+
+const glm::vec4 BOID_COLORS[] = {
+    glm::vec4(1, 0, 0, 1),
+    glm::vec4(0, 1, 0, 1),
+    glm::vec4(0, 0, 1, 1),
+    glm::vec4(1, 0, 1, 1),
+};
+const unsigned int BOID_GROUPS = sizeof(BOID_COLORS) / sizeof(glm::vec4);
+
 const float SPEED = 1000.0f;
+const float BLENDING_SPEED = 50.0f;
 
 const glm::vec3 UPPER_BOUND = glm::vec3(300.0f);
 const glm::vec3 LOWER_BOUND = glm::vec3(-300.0f);
@@ -29,6 +39,7 @@ public:
     FlockingComponenet(dusk::Actor * parent)
         : dusk::Component(parent)
     {
+        GetActor()->AddComponentType<FlockingComponenet>(this);
         GetActor()->AddEventListener((dusk::EventID)dusk::Actor::Events::UPDATE,
             this, &FlockingComponenet::Update);
 
@@ -63,14 +74,30 @@ class BoidActor : public dusk::Actor
 {
 public:
 
-    BoidActor(dusk::Scene * scene, const std::string& name)
+    BoidActor(dusk::Scene * scene, const std::string& name, unsigned int group)
         : dusk::Actor(scene, name)
     {
+        GetScene()->AddActorType<BoidActor>(this);
         GetScene()->AddActorTag(this, "Boid");
+
+        _group = group;
+
+        std::stringstream ss;
+        ss << "Boid-group-" << _group;
+        _groupTag = ss.str();
+
+        GetScene()->AddActorTag(this, _groupTag);
 
         dusk::App * app = dusk::App::GetInst();
         dusk::Shader * shader = app->GetShader("default_shader");
-        dusk::Mesh * mesh = new dusk::ConeMesh(shader, nullptr, 5, 3.0f, 8.0f);
+
+        dusk::Material * mat = new dusk::Material(BOID_COLORS[group],
+                                                  glm::vec4(0),
+                                                  glm::vec4(0),
+                                                  0.0f, 0.0f,
+                                                  "", "", "", "");
+
+        dusk::Mesh * mesh = new dusk::ConeMesh(shader, mat, 5, 3.0f, 8.0f);
         mesh->SetRotation(glm::vec3(0, 0, -glm::pi<float>() * 0.5f));
 
         AddComponent(new dusk::MeshComponent(this, mesh));
@@ -131,10 +158,15 @@ public:
     void SetAcceleration(const glm::vec3& acc) { _acceleration = acc; }
     glm::vec3 GetAcceleration() const { return _acceleration; }
 
+    std::string GetGroupTag() const { return _groupTag; }
+
 private:
 
     glm::vec3 _velocity;
     glm::vec3 _acceleration;
+
+    unsigned int _group;
+    std::string _groupTag;
 
 };
 
@@ -162,14 +194,17 @@ void FlockingComponenet::Update(const dusk::Event& event)
         float separationSquared = SEPARATION_RADIUS * SEPARATION_RADIUS;
         float alignmentSquared  = ALIGNMENT_RADIUS * ALIGNMENT_RADIUS;
 
-        std::vector<dusk::Actor *> allBoids = GetActor()->GetScene()->GetActorsByTag("Boid");
+        //std::vector<BoidActor *> allBoids = GetActor()->GetScene()->GetActorsByType<BoidActor>();
+        //for (BoidActor * boid : allBoids)
+        //{
+        std::vector<dusk::Actor *> allBoids = GetActor()->GetScene()->GetActorsByTag(boidActor->GetGroupTag());
         for (dusk::Actor * actor : allBoids)
         {
             BoidActor * boid = (BoidActor *)actor;
 
-            if (actor == GetActor()) continue;
+            if ((dusk::Actor *)boid == GetActor()) continue;
 
-            float dist = glm::distance2(actor->GetPosition(), pos);
+            float dist = glm::distance2(boid->GetPosition(), pos);
             if (dist < cohesionSquared)
             {
                 _cohesionNeighbors.push_back(boid);
@@ -236,11 +271,17 @@ void FlockingComponenet::Update(const dusk::Event& event)
 
     float totalWeight = COHESION_WEIGHT + SEPARATION_WEIGHT + ALIGNMENT_WEIGHT;
 
-    velocity += cohesionVel * (COHESION_WEIGHT / totalWeight);
-    velocity += separationVel * (SEPARATION_WEIGHT / totalWeight);
-    velocity += alignmentVel * (ALIGNMENT_WEIGHT / totalWeight);
+    glm::vec3 targetVelocity;
+    targetVelocity += cohesionVel * (COHESION_WEIGHT / totalWeight);
+    targetVelocity += separationVel * (SEPARATION_WEIGHT / totalWeight);
+    targetVelocity += alignmentVel * (ALIGNMENT_WEIGHT / totalWeight);
 
-    velocity = glm::normalize(velocity) * SPEED;
+    if (glm::length2(targetVelocity) > 0)
+    {
+        targetVelocity = glm::normalize(targetVelocity) * SPEED;
+        targetVelocity -= velocity;
+        velocity += (targetVelocity * data->GetDelta() * BLENDING_SPEED);
+    }
     boidActor->SetVelocity(velocity);
 }
 
@@ -268,14 +309,17 @@ void AppStart(const dusk::Event& event)
 
     std::stringstream ss;
     dusk::Scene * scene = app->GetScene();
-    for (unsigned int i = 0; i < BOID_COUNT; ++i)
+    for (unsigned int g = 0; g < BOID_GROUPS; ++g)
     {
-        ss.clear();
-        ss.str("boid-");
-        ss << i;
+        for (unsigned int i = 0; i < BOID_COUNT; ++i)
+        {
+            ss.clear();
+            ss.str("boid-");
+            ss << g << "-" << i;
 
-        dusk::Actor * actor = (dusk::Actor *)new BoidActor(scene, ss.str());
-        app->GetScene()->AddActor(actor);
+            dusk::Actor * actor = (dusk::Actor *)new BoidActor(scene, ss.str(), g);
+            app->GetScene()->AddActor(actor);
+        }
     }
 }
 

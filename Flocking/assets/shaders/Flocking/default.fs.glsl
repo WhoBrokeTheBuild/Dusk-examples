@@ -57,5 +57,5 @@ void main()
     }
 
     //o_Color = vec4(ambient + diffuse + specular, 1.0);
-    o_Color = vec4(1, 0, 0, 1.0);
+    o_Color = vec4(_MaterialData.Ambient.rgb, 1.0);
 }
