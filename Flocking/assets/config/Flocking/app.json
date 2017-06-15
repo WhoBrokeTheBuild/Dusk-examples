@@ -29,9 +29,9 @@
             "Cameras": [
                 {
                     "Name": "default",
-                    "Position": [ 400, 400, 400 ],
+                    "Position": [ 550, 550, 550 ],
                     "Forward": [ -1, -1, -1 ],
-                    "Clip": [0.1, 1000.0]
+                    "Clip": [0.1, 1500.0]
                 }
             ],
             "Actors": [
