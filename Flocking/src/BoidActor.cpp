@@ -14,14 +14,10 @@ OctantNode<BoidActor *> _RootNodes[BOID_GROUPS] = {
 };
 
 BoidActor::BoidActor(dusk::Scene * scene,
-                     const std::string& name,
                      unsigned int group,
                      glm::vec4 color)
-    : dusk::Actor(scene, name)
+    : dusk::Actor(scene)
 {
-    GetScene()->AddActorType<BoidActor>(this);
-    GetScene()->AddActorTag(this, "Boid");
-
     _group = group;
 
     dusk::App * app = dusk::App::GetInst();
@@ -33,11 +29,11 @@ BoidActor::BoidActor(dusk::Scene * scene,
                                               0.0f, 0.0f,
                                               "", "", "", "");
 
-    dusk::Mesh * mesh = new dusk::ConeMesh(shader, mat, 5, 3.0f, 8.0f);
+    std::shared_ptr<dusk::Mesh> mesh = std::make_shared<dusk::ConeMesh>(shader, std::shared_ptr<dusk::Material>(mat), 5, 3.0f, 8.0f);
     mesh->SetRotation(glm::vec3(0, 0, -glm::pi<float>() * 0.5f));
 
-    AddComponent(new dusk::MeshComponent(this, mesh));
-    AddComponent(new FlockingComponent(this));
+    AddComponent(std::unique_ptr<dusk::Component>(new dusk::MeshComponent(this, mesh)));
+    AddComponent(std::unique_ptr<dusk::Component>(new FlockingComponent(this)));
 
     std::default_random_engine reng(_rand());
     std::uniform_real_distribution<float> random_position(LOWER_BOUND.x, UPPER_BOUND.x);

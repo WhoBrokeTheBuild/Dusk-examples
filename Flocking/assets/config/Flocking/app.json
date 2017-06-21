@@ -6,7 +6,7 @@
     },
     "Shaders": [
         {
-            "Name": "default_shader",
+            "ID": "default_shader",
             "BindData": [ "LightingData" ],
             "Files": [
                 {
@@ -20,22 +20,5 @@
             ]
         }
     ],
-    "StartScene": "default_scene",
-    "Scenes": [
-        {
-            "Name": "default_scene",
-            "Scripts": [ "assets/scripts/Flocking/default_scene.lua" ],
-            "StartCamera": "default",
-            "Cameras": [
-                {
-                    "Name": "default",
-                    "Position": [ 550, 550, 550 ],
-                    "Forward": [ -1, -1, -1 ],
-                    "Clip": [0.1, 1500.0]
-                }
-            ],
-            "Actors": [
-            ]
-        }
-    ]
+    "DefaultScene": "assets/config/Flocking/default_scene.json"
 }

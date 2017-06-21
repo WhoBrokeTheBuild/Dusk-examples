@@ -1,12 +1,12 @@
 {
     "Window": {
-        "Width": 640,
-        "Height": 480,
+        "Width": 1024,
+        "Height": 768,
         "Title": "Dusk - Lighting Example"
     },
     "Shaders": [
         {
-            "Name": "default_shader",
+            "ID": "default_shader",
             "BindData": [ "LightingData" ],
             "Files": [
                 {
@@ -20,35 +20,5 @@
             ]
         }
     ],
-    "StartScene": "default_scene",
-    "Scenes": [
-        {
-            "Name": "default_scene",
-            "StartCamera": "default_camera",
-            "Cameras": [
-                {
-                    "Name": "default_camera",
-                    "Position": [ 3, 3, 3 ],
-                    "Forward": [ -1, -1, -1 ]
-                }
-            ],
-            "Actors": [
-                {
-                    "Name": "main_actor",
-                    "Position": [ 0, 0, 0],
-                    "Components": [
-                        {
-                            "Type": "Mesh",
-                            "Shader": "default_shader",
-                            "File": "assets/models/monkey/monkey.obj"
-                        },
-                        {
-                            "Type": "Script",
-                            "File": "assets/scripts/Lighting/rotate.lua"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+    "DefaultScene": "assets/config/Lighting/default_scene.json"
 }

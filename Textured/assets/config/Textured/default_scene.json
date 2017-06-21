@@ -1,0 +1,27 @@
+{
+    "DefaultCamera": "default_camera",
+    "Cameras": [
+        {
+            "ID": "default_camera",
+            "Position": [ 1.5, 1.5, 1.5 ],
+            "Forward": [ -1, -1, -1 ]
+        }
+    ],
+    "Actors": [
+        {
+            "ID": "main_actor",
+            "Position": [ 0, 0, 0],
+            "Components": [
+                {
+                    "Type": "Mesh",
+                    "Shader": "default_shader",
+                    "File": "assets/models/globe/globe.obj"
+                },
+                {
+                    "Type": "Script",
+                    "File": "assets/scripts/Textured/rotate.lua"
+                }
+            ]
+        }
+    ]
+}

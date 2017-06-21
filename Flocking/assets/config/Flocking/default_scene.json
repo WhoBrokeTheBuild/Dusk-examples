@@ -1,0 +1,15 @@
+{
+    "Name": "default_scene",
+    "Scripts": [ "assets/scripts/Flocking/default_scene.lua" ],
+    "DefaultCamera": "default_camera",
+    "Cameras": [
+        {
+            "ID": "default_camera",
+            "Position": [ 550, 550, 550 ],
+            "Forward": [ -1, -1, -1 ],
+            "Clip": [0.1, 1500.0]
+        }
+    ],
+    "Actors": [
+    ]
+}

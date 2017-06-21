@@ -2,27 +2,27 @@
 
 struct LightingData
 {
-    alignas(4) glm::vec3 light_pos;
-    alignas(4) glm::vec3 camera_pos;
+    alignas(4) glm::vec3 LightPos;
+    alignas(4) glm::vec3 CameraPos;
 };
-LightingData lighting_data;
+LightingData _LightingData;
 
 void Update(const dusk::Event& event)
 {
     dusk::App * app = dusk::App::GetInst();
 
-    glm::vec3 cam_pos = app->GetScene()->GetCamera()->GetPosition();
+    glm::vec3 camPos = app->GetScene()->GetCurrentCamera()->GetPosition();
 
-    lighting_data.light_pos  = cam_pos;
-    lighting_data.camera_pos = cam_pos;
-    dusk::Shader::UpdateData("LightingData", &lighting_data, sizeof(lighting_data));
+    _LightingData.LightPos  = camPos;
+    _LightingData.CameraPos = camPos;
+    dusk::Shader::UpdateData("LightingData", &_LightingData, sizeof(_LightingData));
 }
 
 int main(int argc, char** argv)
 {
     dusk::App app(argc, argv);
 
-    dusk::Shader::DefineData("LightingData", sizeof(LightingData));
+    dusk::Shader::AddData("LightingData", &_LightingData, sizeof(_LightingData));
 
     app.LoadConfig("assets/config/Textured/app.json");
     app.AddEventListener((dusk::EventID)dusk::App::Events::UPDATE, &Update);

@@ -11,7 +11,6 @@ class BoidActor : public dusk::Actor
 public:
 
     BoidActor(dusk::Scene * scene,
-              const std::string& name,
               unsigned int group,
               glm::vec4 color);
 

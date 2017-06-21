@@ -13,12 +13,6 @@ public:
 
     virtual ~FlockingComponent();
 
-    inline bool Load() override
-    { return true; }
-
-    inline void Free() override
-    { }
-
     void Update(const dusk::Event& event);
 
 private:

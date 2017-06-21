@@ -1,0 +1,27 @@
+{
+    "DefaultCamera": "default_camera",
+    "Cameras": [
+        {
+            "ID": "default_camera",
+            "Position": [ 3, 3, 3 ],
+            "Forward": [ -1, -1, -1 ]
+        }
+    ],
+    "Actors": [
+        {
+            "ID": "main_actor",
+            "Position": [ 0, 0, 0],
+            "Components": [
+                {
+                    "Type": "Mesh",
+                    "Shader": "default_shader",
+                    "File": "assets/models/monkey/monkey.obj"
+                },
+                {
+                    "Type": "Script",
+                    "File": "assets/scripts/Lighting/rotate.lua"
+                }
+            ]
+        }
+    ]
+}

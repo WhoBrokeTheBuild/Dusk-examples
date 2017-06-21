@@ -15,7 +15,6 @@ const float ALIGNMENT_WEIGHT  = 0.6;
 FlockingComponent::FlockingComponent(dusk::Actor * parent)
     : dusk::Component(parent)
 {
-    GetActor()->AddComponentType<FlockingComponent>(this);
     GetActor()->AddEventListener((dusk::EventID)dusk::Actor::Events::UPDATE,
         this, &FlockingComponent::Update);
 

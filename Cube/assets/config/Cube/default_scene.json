@@ -1,0 +1,27 @@
+{
+    "Cameras": [
+        {
+            "ID": "default_camera",
+            "Position": [ 3, 3, 3 ],
+            "Forward": [ -1, -1, -1 ]
+        }
+    ],
+    "DefaultCamera": "default_camera",
+    "Actors": [
+        {
+            "ID": "main_actor",
+            "Position": [ 0, 0, 0 ],
+            "Components": [
+                {
+                    "Type": "Mesh",
+                    "Shader": "default_shader",
+                    "File": "assets/models/cube/cube.obj"
+                },
+                {
+                    "Type": "Script",
+                    "File": "assets/scripts/Cube/rotate.lua"
+                }
+            ]
+        }
+    ]
+}

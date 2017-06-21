@@ -12,16 +12,17 @@ struct LightingData
     alignas(4) glm::vec3 LightPos;
     alignas(4) glm::vec3 CameraPos;
 };
-LightingData lighting_data;
+LightingData _LightingData;
 
 void AppUpdate(const dusk::Event& event)
 {
     dusk::App * app = dusk::App::GetInst();
 
-    glm::vec3 cam_pos = app->GetScene()->GetCamera()->GetPosition();
-    lighting_data.LightPos  = cam_pos;
-    lighting_data.CameraPos = cam_pos;
-    dusk::Shader::UpdateData("LightingData", &lighting_data, sizeof(lighting_data));
+    glm::vec3 camPos = app->GetScene()->GetCurrentCamera()->GetPosition();
+
+    _LightingData.LightPos  = camPos;
+    _LightingData.CameraPos = camPos;
+    dusk::Shader::UpdateData("LightingData", &_LightingData, sizeof(_LightingData));
 }
 
 void AppStart(const dusk::Event& event)
@@ -34,12 +35,7 @@ void AppStart(const dusk::Event& event)
     {
         for (unsigned int i = 0; i < BOID_COUNT; ++i)
         {
-            ss.clear();
-            ss.str("boid-");
-            ss << g << "-" << i;
-
-            dusk::Actor * actor = (dusk::Actor *)new BoidActor(scene, ss.str(), g, BOID_COLORS[g]);
-            app->GetScene()->AddActor(actor);
+            scene->AddActor(std::unique_ptr<dusk::Actor>(new BoidActor(scene, g, BOID_COLORS[g])));
         }
     }
 }
@@ -48,8 +44,7 @@ int main(int argc, char** argv)
 {
     dusk::App app(argc, argv);
 
-    dusk::Shader::DefineData("LightingData", sizeof(LightingData));
-    //app.RegisterActorType<BoidActor>("Boid");
+    dusk::Shader::AddData("LightingData", &_LightingData, sizeof(_LightingData));
 
 	app.LoadConfig("assets/config/Flocking/app.json");
     app.AddEventListener((dusk::EventID)dusk::App::Events::UPDATE, &AppUpdate);

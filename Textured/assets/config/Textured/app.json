@@ -6,7 +6,7 @@
     },
     "Shaders": [
         {
-            "Name": "default_shader",
+            "ID": "default_shader",
             "BindData": [ "LightingData" ],
             "Files": [
                 {
@@ -20,35 +20,5 @@
             ]
         }
     ],
-    "StartScene": "default_scene",
-    "Scenes": [
-        {
-            "Name": "default_scene",
-            "StartCamera": "default_camera",
-            "Cameras": [
-                {
-                    "Name": "default_camera",
-                    "Position": [ 1.5, 1.5, 1.5 ],
-                    "Forward": [ -1, -1, -1 ]
-                }
-            ],
-            "Actors": [
-                {
-                    "Name": "main_actor",
-                    "Position": [ 0, 0, 0],
-                    "Components": [
-                        {
-                            "Type": "Mesh",
-                            "Shader": "default_shader",
-                            "File": "assets/models/globe/globe.obj"
-                        },
-                        {
-                            "Type": "Script",
-                            "File": "assets/scripts/Textured/rotate.lua"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+    "DefaultScene": "assets/config/Textured/default_scene.json"
 }
