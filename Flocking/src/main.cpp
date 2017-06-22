@@ -1,11 +1,11 @@
 #include <dusk/Dusk.hpp>
 #include <sstream>
 
-#include "Constants.hpp"
+#include "Common.hpp"
 #include "BoidActor.hpp"
 #include "Octant.hpp"
 
-const unsigned int BOID_COUNT = 500;
+const unsigned int BOID_COUNT = 1000;
 
 struct LightingData
 {

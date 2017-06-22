@@ -18,6 +18,8 @@ BoidActor::BoidActor(dusk::Scene * scene,
                      glm::vec4 color)
     : dusk::Actor(scene)
 {
+    static std::mt19937 _R;
+
     _group = group;
 
     dusk::App * app = dusk::App::GetInst();
@@ -29,26 +31,28 @@ BoidActor::BoidActor(dusk::Scene * scene,
                                               0.0f, 0.0f,
                                               "", "", "", "");
 
-    std::shared_ptr<dusk::Mesh> mesh = std::make_shared<dusk::ConeMesh>(shader, std::shared_ptr<dusk::Material>(mat), 5, 3.0f, 8.0f);
-    mesh->SetRotation(glm::vec3(0, 0, -glm::pi<float>() * 0.5f));
+    std::unique_ptr<dusk::Model> model(new dusk::Model(shader));
+    model->SetRotation(glm::vec3(0, 0, -glm::pi<float>() * 0.5f));
 
-    AddComponent(std::unique_ptr<dusk::Component>(new dusk::MeshComponent(this, mesh)));
+    std::shared_ptr<dusk::Mesh> mesh = dusk::ConeMesh::Create(std::shared_ptr<dusk::Material>(mat), 5, 3.0f, 8.0f);
+    model->AddMesh(mesh);
+
+    AddComponent(std::unique_ptr<dusk::Component>(new dusk::ModelComponent(this, std::move(model))));
     AddComponent(std::unique_ptr<dusk::Component>(new FlockingComponent(this)));
 
-    std::default_random_engine reng(_rand());
     std::uniform_real_distribution<float> random_position(LOWER_BOUND.x, UPPER_BOUND.x);
     std::uniform_real_distribution<float> random_angle(-1, 1);
 
-    SetPosition(glm::vec3(random_position(reng),
-                          random_position(reng),
-                          random_position(reng)));
+    SetPosition(glm::vec3(random_position(_R),
+                          random_position(_R),
+                          random_position(_R)));
 
     _RootNodes[_group].AddMember(GetPosition(), this);
     _quadIndex = _RootNodes[_group].GetIndex(GetPosition());
 
-    glm::vec3 vel = glm::vec3(random_angle(reng),
-                              random_angle(reng),
-                              random_angle(reng));
+    glm::vec3 vel = glm::vec3(random_angle(_R),
+                              random_angle(_R),
+                              random_angle(_R));
     SetVelocity(vel * SPEED);
 }
 

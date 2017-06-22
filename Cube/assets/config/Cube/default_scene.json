@@ -13,9 +13,14 @@
             "Position": [ 0, 0, 0 ],
             "Components": [
                 {
-                    "Type": "Mesh",
+                    "Type": "Model",
                     "Shader": "default_shader",
-                    "File": "assets/models/cube/cube.obj"
+                    "Meshes": [
+                        {
+                            "Type": "Cube",
+                            "Size": 2.0
+                        }
+                    ]
                 },
                 {
                     "Type": "Script",

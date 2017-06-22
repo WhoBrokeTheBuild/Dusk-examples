@@ -13,9 +13,14 @@
             "Position": [ 0, 0, 0],
             "Components": [
                 {
-                    "Type": "Mesh",
+                    "Type": "Model",
                     "Shader": "default_shader",
-                    "File": "assets/models/monkey/monkey.obj"
+                    "Meshes": [
+                        {
+                            "Type": "File",
+                            "File": "assets/models/monkey/monkey.obj"
+                        }
+                    ]
                 },
                 {
                     "Type": "Script",

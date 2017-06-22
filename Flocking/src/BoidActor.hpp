@@ -2,8 +2,7 @@
 #define BOID_ACTOR_HPP
 
 #include <dusk/Dusk.hpp>
-#include <random>
-#include "Constants.hpp"
+#include "Common.hpp"
 #include "Octant.hpp"
 
 class BoidActor : public dusk::Actor
@@ -25,8 +24,6 @@ public:
     unsigned int GetGroup() const { return _group; }
 
 private:
-
-    std::random_device _rand;
 
     glm::vec3 _velocity;
     glm::vec3 _acceleration;
