@@ -7,7 +7,7 @@ struct LightingData
 };
 LightingData _LightingData;
 
-void Update(const dusk::Event& event)
+void OnUpdate(const dusk::Event& event)
 {
     dusk::App * app = dusk::App::GetInst();
 
@@ -25,7 +25,7 @@ int main(int argc, char** argv)
     dusk::Shader::AddData("LightingData", &_LightingData, sizeof(_LightingData));
 
     app.LoadConfig("assets/config/Lighting/app.json");
-    app.AddEventListener((dusk::EventID)dusk::App::Events::UPDATE, &Update);
+    app.AddEventListener((dusk::EventID)dusk::App::Events::UPDATE, &OnUpdate);
 
     app.Run();
     return 0;

@@ -25,16 +25,15 @@ BoidActor::BoidActor(dusk::Scene * scene,
     dusk::App * app = dusk::App::GetInst();
     dusk::Shader * shader = app->GetShader("default_shader");
 
-    dusk::Material * mat = new dusk::Material(color,
-                                              glm::vec4(0),
-                                              glm::vec4(0),
-                                              0.0f, 0.0f,
-                                              "", "", "", "");
+    std::shared_ptr<dusk::Material> mat = dusk::Material::Create(
+        color, glm::vec4(0), glm::vec4(0),
+        0.0f, 0.0f,
+        "", "", "", "");
 
     std::unique_ptr<dusk::Model> model(new dusk::Model(shader));
     model->SetRotation(glm::vec3(0, 0, -glm::pi<float>() * 0.5f));
 
-    std::shared_ptr<dusk::Mesh> mesh = dusk::ConeMesh::Create(std::shared_ptr<dusk::Material>(mat), 5, 3.0f, 8.0f);
+    std::shared_ptr<dusk::Mesh> mesh = dusk::ConeMesh::Create(mat, 5, 3.0f, 8.0f);
     model->AddMesh(mesh);
 
     AddComponent(std::unique_ptr<dusk::Component>(new dusk::ModelComponent(this, std::move(model))));

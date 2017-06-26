@@ -50,7 +50,7 @@ ENDMACRO()
 # Copy example projects shared assets folder
 ADD_CUSTOM_TARGET(copy-example-assets)
 ADD_CUSTOM_COMMAND(
-    OUTPUT 
+    OUTPUT
     TARGET copy-example-assets PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E
         copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets ${CMAKE_BINARY_DIR}/assets
