@@ -35,7 +35,7 @@ void AppStart(const dusk::Event& event)
     {
         for (unsigned int i = 0; i < BOID_COUNT; ++i)
         {
-            scene->AddActor(std::unique_ptr<dusk::Actor>(new BoidActor(scene, g, BOID_COLORS[g])));
+            scene->AddActor(std::unique_ptr<dusk::Actor>(new BoidActor(g, BOID_COLORS[g])));
         }
     }
 }

@@ -1,0 +1,77 @@
+{
+    "DefaultCamera": "default_camera",
+    "Cameras": [
+        {
+            "ID": "default_camera",
+            "Position": [ 120, 120, 0 ],
+            "Forward": [ -1, -1, 0 ]
+        }
+    ],
+    "Actors": [
+        {
+            "ID": "board_actor",
+            "Position": [ 0, 0, 0],
+            "Components": [
+                {
+                    "Type": "Model",
+                    "Shader": "lighting_shader",
+                    "Meshes": [
+                        {
+                            "Type": "Plane",
+                            "Material": {
+                                "Specular": [ 0.0, 0.0, 0.0, 0.0 ],
+                                "DiffuseMap": "assets/textures/Checkers/board.png"
+                            },
+                            "Width": 120.0,
+                            "Height": 120.0,
+                            "Rows": 12,
+                            "Cols": 12
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "ID": "red-piece",
+            "Template": true,
+            "Components": [
+                {
+                    "Type": "Model",
+                    "Shader": "flat_shader",
+                    "Meshes": [
+                        {
+                            "Type": "Cylinder",
+                            "Material": {
+                                "Diffuse": [ 1.0, 0.0, 0.0, 1.0 ]
+                            },
+                            "Points": 16,
+                            "Radius": 4.5,
+                            "Height": 1.0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "ID": "black-piece",
+            "Template": true,
+            "Components": [
+                {
+                    "Type": "Model",
+                    "Shader": "flat_shader",
+                    "Meshes": [
+                        {
+                            "Type": "Cylinder",
+                            "Material": {
+                                "Diffuse": [ 0.0, 0.0, 0.0, 1.0 ]
+                            },
+                            "Points": 16,
+                            "Radius": 4.5,
+                            "Height": 1.0
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

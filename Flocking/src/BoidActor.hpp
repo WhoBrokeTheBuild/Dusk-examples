@@ -9,9 +9,7 @@ class BoidActor : public dusk::Actor
 {
 public:
 
-    BoidActor(dusk::Scene * scene,
-              unsigned int group,
-              glm::vec4 color);
+    BoidActor(unsigned int group, glm::vec4 color);
 
     void Update(const dusk::Event& event) override;
 

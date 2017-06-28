@@ -20,18 +20,18 @@ void main()
         normal = _TransformData.Model * (texture(_BumpMap, p_TexCoord).rgba * 2.0 - 1.0);
     }
 
-    vec3 ambient = _MaterialData.Ambient.rgb;
+    vec4 ambient = _MaterialData.Ambient;
     if ((_MaterialData.MapFlags & AmbientMapFlag) > 0u)
     {
-        ambient = texture(_AmbientMap, p_TexCoord).rgb;
+        ambient = texture(_AmbientMap, p_TexCoord);
     }
 
     float diff = max(0.0, dot(normal.xyz, p_LightDir));
-    vec3 diffuse = diff * _MaterialData.Diffuse.rgb;
+    vec4 diffuse = diff * _MaterialData.Diffuse;
 
     if ((_MaterialData.MapFlags & DiffuseMapFlag) > 0u)
     {
-        diffuse = diff * texture(_DiffuseMap, p_TexCoord).rgb;
+        diffuse = diff * texture(_DiffuseMap, p_TexCoord);
     }
 
     vec3  halfwayDir = normalize(p_LightDir + p_ViewDir);
@@ -41,11 +41,11 @@ void main()
         spec = pow(spec, _MaterialData.Shininess);
     }
 
-    vec3 specular = vec3(spec);
+    vec4 specular = vec4(spec) * _MaterialData.Specular;
     if ((_MaterialData.MapFlags & SpecularMapFlag) > 0u)
     {
-        specular = spec * texture(_SpecularMap, p_TexCoord).rgb;
+        specular = spec * texture(_SpecularMap, p_TexCoord);
     }
 
-    o_Color = vec4(ambient + diffuse + specular, 1.0);
+    o_Color = ambient + diffuse + specular;
 }

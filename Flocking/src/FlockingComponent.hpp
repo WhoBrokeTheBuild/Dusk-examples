@@ -9,9 +9,10 @@ class FlockingComponent : public dusk::Component
 {
 public:
 
-    FlockingComponent(dusk::Actor * parent);
-
+    FlockingComponent();
     virtual ~FlockingComponent();
+
+    virtual void SetActor(dusk::Actor * actor) override;
 
     void Update(const dusk::Event& event);
 

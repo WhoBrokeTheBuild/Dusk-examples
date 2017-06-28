@@ -1,0 +1,38 @@
+{
+    "Window": {
+        "Width": 1024,
+        "Height": 768,
+        "Title": "Dusk - Checkers Example"
+    },
+    "Shaders": [
+        {
+            "ID": "lighting_shader",
+            "BindData": [ "LightingData" ],
+            "Files": [
+                {
+                    "Type": "Vertex",
+                    "File": "assets/shaders/Checkers/lighting.vs.glsl"
+                },
+                {
+                    "Type": "Fragment",
+                    "File": "assets/shaders/Checkers/lighting.fs.glsl"
+                }
+            ]
+        },
+        {
+            "ID": "flat_shader",
+            "BindData": [ ],
+            "Files": [
+                {
+                    "Type": "Vertex",
+                    "File": "assets/shaders/Checkers/flat.vs.glsl"
+                },
+                {
+                    "Type": "Fragment",
+                    "File": "assets/shaders/Checkers/flat.fs.glsl"
+                }
+            ]
+        }
+    ],
+    "DefaultScene": "assets/config/Checkers/game_scene.json"
+}

@@ -12,18 +12,32 @@ const float COHESION_WEIGHT   = 0.5;
 const float SEPARATION_WEIGHT = 0.5;
 const float ALIGNMENT_WEIGHT  = 0.6;
 
-FlockingComponent::FlockingComponent(dusk::Actor * parent)
-    : dusk::Component(parent)
+FlockingComponent::FlockingComponent()
+    : dusk::Component()
 {
-    GetActor()->AddEventListener((dusk::EventID)dusk::Actor::Events::UPDATE,
-        this, &FlockingComponent::Update);
-
     _neighborsTimeout = NEIGHBORS_MAX_TIMEOUT;
 }
 
 FlockingComponent::~FlockingComponent()
 {
-    GetActor()->RemoveEventListener((dusk::EventID)dusk::Actor::Events::UPDATE,
+    if (GetActor())
+    {
+        GetActor()->RemoveEventListener((dusk::EventID)dusk::Actor::Events::UPDATE,
+        this, &FlockingComponent::Update);
+    }
+}
+
+void FlockingComponent::SetActor(dusk::Actor * actor)
+{
+    if (GetActor())
+    {
+        GetActor()->RemoveEventListener((dusk::EventID)dusk::Actor::Events::UPDATE,
+        this, &FlockingComponent::Update);
+    }
+
+    dusk::Component::SetActor(actor);
+
+    GetActor()->AddEventListener((dusk::EventID)dusk::Actor::Events::UPDATE,
         this, &FlockingComponent::Update);
 }
 
