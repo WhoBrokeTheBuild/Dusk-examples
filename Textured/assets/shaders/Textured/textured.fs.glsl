@@ -1,5 +1,3 @@
-#version 430 core
-
 #include ../data/transform.inc.glsl
 #include ../data/material.inc.glsl
 

@@ -1,5 +1,3 @@
-#version 430 core
-
 in vec3 _Position;
 in vec3 _Normal;
 in vec2 _TexCoord;
