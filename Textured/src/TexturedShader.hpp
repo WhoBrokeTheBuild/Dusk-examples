@@ -9,8 +9,8 @@ public:
 
     TexturedShader()
         : dusk::Shader({
-            "assets/shaders/Textured/textured.vs.glsl",
-            "assets/shaders/Textured/textured.fs.glsl",
+            "assets/shaders/textured.vs.glsl",
+            "assets/shaders/textured.fs.glsl",
         })
     { }
 

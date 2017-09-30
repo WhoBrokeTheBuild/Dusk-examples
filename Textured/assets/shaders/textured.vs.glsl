@@ -1,3 +1,6 @@
+#include data/transform.inc.glsl
+#include data/material.inc.glsl
+
 in vec3 _Position;
 in vec3 _Normal;
 in vec2 _TexCoord;
@@ -8,9 +11,6 @@ layout(std140) uniform LightingData
     vec3 CameraPos;
 
 } _LightingData;
-
-#include ../data/transform.inc.glsl
-#include ../data/material.inc.glsl
 
 out vec4 p_Position;
 out vec4 p_Normal;

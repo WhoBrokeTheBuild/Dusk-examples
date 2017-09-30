@@ -1,8 +1,9 @@
+#include <dusk/Main.hpp>
 #include <dusk/Dusk.hpp>
 #include "TexturedShader.hpp"
 #include <sstream>
 
-int main(int argc, char** argv)
+int _DuskMain(int argc, char** argv)
 {
     dusk::App app(argc, argv);
 
