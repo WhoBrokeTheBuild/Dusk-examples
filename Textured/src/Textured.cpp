@@ -3,11 +3,13 @@
 #include <dusk/core/Event.hpp>
 #include <sstream>
 
+dusk::ScriptHost script;
+
 dusk::Shader * shader;
 dusk::Camera * camera;
 dusk::Model * model;
 
-std::unique_ptr<dusk::CallbackBase> updateCb, renderCb, reloadCb;
+std::unique_ptr<dusk::ICallback> updateCb, renderCb, reloadCb;
 
 void Update(const dusk::UpdateContext& ctx)
 {
@@ -28,6 +30,9 @@ void Render(dusk::RenderContext& ctx)
 
 void _DuskSetup(dusk::App * app)
 {
+    script.LoadFile("assets/scripts/main.as");
+    script.Run();
+
     shader = app->AddShader(std::unique_ptr<dusk::Shader>(new dusk::Shader({ "assets/shaders/textured.fs.glsl", "assets/shaders/textured.vs.glsl" })));
 
     updateCb.reset();
