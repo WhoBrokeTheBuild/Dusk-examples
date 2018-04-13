@@ -13,9 +13,9 @@ out vec4 o_Color;
 void main()
 {
     vec4 normal = normalize(p_Normal);
-    if ((_MaterialData.MapFlags & BumpMapFlag) > 0u)
+    if ((_MaterialData.MapFlags & NormalMapFlag) > 0u)
     {
-        normal = _TransformData.Model * (texture(_BumpMap, p_TexCoord).rgba * 2.0 - 1.0);
+        normal = _TransformData.Model * (texture(_NormalMap, p_TexCoord).rgba * 2.0 - 1.0);
     }
 
     vec3 ambient = _MaterialData.Ambient.rgb;
@@ -33,11 +33,7 @@ void main()
     }
 
     vec3  halfwayDir = normalize(p_LightDir + p_ViewDir);
-    float spec       = max(0.0, dot(normal.xyz, halfwayDir));
-    if (_MaterialData.Shininess > 0)
-    {
-        spec = pow(spec, _MaterialData.Shininess);
-    }
+    float spec       = pow(max(0.0, dot(normal.xyz, halfwayDir)), 32.0);
 
     vec3 specular = vec3(spec);
     if ((_MaterialData.MapFlags & SpecularMapFlag) > 0u)
