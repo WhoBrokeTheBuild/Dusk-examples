@@ -4,12 +4,16 @@ PROJECT(Textured VERSION 0.0.1)
 
 SET(DUSK_PATH $ENV{DUSK_INSTALL_DIR})
 IF("${DUSK_PATH}" STREQUAL "")
-    FILE(READ "$ENV{HOME}/.duskconfig" tmp)
-    STRING(STRIP "${tmp}" DUSK_PATH)
+    IF(EXISTS "$ENV{HOME}/.duskconfig")
+        FILE(READ "$ENV{HOME}/.duskconfig" DUSK_PATH)
+        STRING(STRIP DUSK_PATH "${DUSK_PATH}")
+    ENDIF()
 ENDIF()
 IF("${DUSK_PATH}" STREQUAL "")
-    GET_FILENAME_COMPONENT(DUSK_PATH "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Dusk;Path]" ABSOLUTE CACHE)
+    GET_FILENAME_COMPONENT(DUSK_PATH "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Dusk;Path]" ABSOLUTE)
 ENDIF()
+
+MESSAGE(${DUSK_PATH})
 
 INCLUDE(${DUSK_PATH}/cmake/Config.cmake)
 INCLUDE(${DUSK_PATH}/cmake/Compiler.cmake)
@@ -27,10 +31,17 @@ SET(_LIBRARY    ${PROJECT_NAME}-Library)
 FILE(GLOB_RECURSE _INCLUDES RELATIVE ${CMAKE_SOURCE_DIR} include/*.hpp)
 FILE(GLOB_RECURSE _SOURCES  RELATIVE ${CMAKE_SOURCE_DIR} src/*.cpp)
 
-ADD_LIBRARY(${_LIBRARY} SHARED
-    ${_INCLUDES}
-    ${_SOURCES}
-)
+IF(WIN32)
+    ADD_LIBRARY(${_LIBRARY}
+        ${_INCLUDES}
+        ${_SOURCES}
+    )
+ELSE()
+    ADD_LIBRARY(${_LIBRARY} SHARED
+        ${_INCLUDES}
+        ${_SOURCES}
+    )
+ENDIF()
 
 CONFIGURE_FILE(
     ${_DUSK_ENGINE_MAIN}
@@ -45,6 +56,22 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME}
     ${_LIBRARY}
     ${_DUSK_ENGINE_LIBRARIES}
 )
+
+# Debug-only libraries
+FOREACH(debug_lib IN ITEMS ${_DUSK_ENGINE_LIBRARIES_DEBUG})
+    TARGET_LINK_LIBRARIES(
+        ${PROJECT_NAME}
+        debug ${debug_lib}
+    )
+ENDFOREACH()
+
+# Release-only libraries
+FOREACH(release_lib IN ITEMS ${_DUSK_ENGINE_LIBRARIES_RELEASE})
+    TARGET_LINK_LIBRARIES(
+        ${PROJECT_NAME}
+        optimized ${release_lib}
+    )
+ENDFOREACH()
 
 CONFIGURE_FILE(
     ${_DUSK_EDITOR_MAIN}
@@ -63,6 +90,22 @@ TARGET_LINK_LIBRARIES(${_EDITOR}
 
 SET(_ASSET_PATH "${_ASSET_PATH}:${CMAKE_SOURCE_DIR}/../assets:${CMAKE_SOURCE_DIR}/assets")
 ADD_DEFINITIONS(-DASSET_PATH="${_ASSET_PATH}")
+
+# Debug-only libraries
+FOREACH(debug_lib IN ITEMS ${_DUSK_EDITOR_LIBRARIES_DEBUG})
+    TARGET_LINK_LIBRARIES(
+        ${_EDITOR}
+        debug ${debug_lib}
+    )
+ENDFOREACH()
+
+# Release-only libraries
+FOREACH(release_lib IN ITEMS ${_DUSK_EDITOR_LIBRARIES_RELEASE})
+    TARGET_LINK_LIBRARIES(
+        ${_EDITOR}
+        optimized ${release_lib}
+    )
+ENDFOREACH()
 
 ###
 ### Automation
