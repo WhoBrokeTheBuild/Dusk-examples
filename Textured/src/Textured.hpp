@@ -45,12 +45,9 @@ public:
 
     void Update(const dusk::UpdateContext& ctx)
     {
-        static float rotation = 0.0f;
-        rotation += 0.5f * ctx.DeltaTime;
-        rotation = fmod(rotation, 360.0f);
-
         glm::vec3 rot = actor->GetRotation();
-        rot.y = glm::radians(rotation);
+        rot.y += glm::radians(0.5f * ctx.DeltaTime);
+        rot.y = fmod(rot.y, M_PI * 2.0f);
         actor->SetRotation(rot);
     }
 
