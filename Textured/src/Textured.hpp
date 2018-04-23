@@ -13,6 +13,10 @@ public:
 
     DUSK_CLASS(GameScene)
 
+    GameScene(std::string id)
+        : dusk::Scene(id)
+    { }
+
     virtual void Start() override
     {
         Scene::Start();
@@ -29,14 +33,12 @@ public:
 
         TrackCallback(app->OnUpdate.AddMember<GameScene>(this, &GameScene::Update));
 
-        dusk::Camera * camera = AddActor<dusk::Camera>(std::make_unique<dusk::Camera>(this));
-        camera->SetId("main_camera");
+        dusk::Camera * camera = AddActor<dusk::Camera>(std::make_unique<dusk::Camera>("main_camera", this));
         camera->SetAspect(app->GetWindowSize());
         camera->SetPosition({ 3, 3, 3 });
         camera->SetForward({ -1, -1, -1 });
 
-        actor = AddActor(std::make_unique<dusk::Actor>(this));
-        actor->SetId("main_actor");
+        actor = AddActor(std::make_unique<dusk::Actor>("main_actor", this));
         actor->AddComponent(std::make_unique<dusk::MeshComponent>(actor, std::make_unique<dusk::Mesh>("assets/models/globe/globe.obj")));
 
         app->GetRenderContext().CurrentShader = shader;
