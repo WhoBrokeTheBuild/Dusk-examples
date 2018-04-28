@@ -25,11 +25,13 @@ void main()
     }
 
     float diff = max(0.0, dot(normal.xyz, p_LightDir));
-    vec3 diffuse = diff * _MaterialData.Diffuse.rgb;
+    vec4 diffuse = diff * _MaterialData.Diffuse.rgba;
+    diffuse.a = _MaterialData.Diffuse.a;
 
     if ((_MaterialData.MapFlags & DiffuseMapFlag) > 0u)
     {
-        diffuse = diff * texture(_DiffuseMap, p_TexCoord).rgb;
+        diffuse = diff * texture(_DiffuseMap, p_TexCoord).rgba;
+        diffuse.a = texture(_DiffuseMap, p_TexCoord).a;
     }
 
     vec3  halfwayDir = normalize(p_LightDir + p_ViewDir);
@@ -41,5 +43,5 @@ void main()
         specular = spec * texture(_SpecularMap, p_TexCoord).rgb;
     }
 
-    o_Color = vec4(ambient + diffuse + specular, 1.0);
+    o_Color = vec4(ambient + diffuse.rgb + specular, diffuse.a);
 }
