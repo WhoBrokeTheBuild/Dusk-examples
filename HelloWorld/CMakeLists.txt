@@ -92,12 +92,7 @@ ENDFOREACH()
 
 CONFIGURE_FILE(
     ${_DUSK_EDITOR_MAIN}
-    ${CMAKE_BINARY_DIR}/EditorMain.gen.cpp.in
-)
-
-FILE(GENERATE
-    OUTPUT ${CMAKE_BINARY_DIR}/EditorMain.gen.cpp
-    INPUT ${CMAKE_BINARY_DIR}/EditorMain.gen.cpp.in
+    EditorMain.gen.cpp
 )
 
 ADD_EXECUTABLE(${_EDITOR}
