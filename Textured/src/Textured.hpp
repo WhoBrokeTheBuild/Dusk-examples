@@ -21,14 +21,14 @@ public:
     {
         Scene::Start();
 
-        script.LoadFile("assets/scripts/main.as");
+        script.LoadFile("scripts/main.as");
         script.Run();
 
         dusk::App * app = dusk::App::Inst();
 
         dusk::Shader * shader = app->AddShader(std::make_unique<dusk::Shader>(std::vector<std::string>({
-            "assets/shaders/textured.fs.glsl",
-            "assets/shaders/textured.vs.glsl"
+            "shaders/textured.fs.glsl",
+            "shaders/textured.vs.glsl"
         })));
 
         TrackCallback(app->OnUpdate.AddMember<GameScene>(this, &GameScene::Update));
@@ -39,7 +39,7 @@ public:
         camera->SetForward({ -1, -1, -1 });
 
         actor = AddActor(std::make_unique<dusk::Actor>("main_actor", this));
-        actor->AddComponent(std::make_unique<dusk::MeshComponent>(actor, std::make_unique<dusk::Mesh>("assets/models/globe/globe.obj")));
+        actor->AddComponent(std::make_unique<dusk::MeshComponent>(actor, std::make_unique<dusk::Mesh>("models/globe/globe.obj")));
 
         app->GetRenderContext().CurrentShader = shader;
         app->GetRenderContext().CurrentCamera = camera;

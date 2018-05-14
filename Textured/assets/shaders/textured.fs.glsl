@@ -1,5 +1,5 @@
-#include data/transform.inc.glsl
-#include data/material.inc.glsl
+#include shaders/data/transform.inc.glsl
+#include shaders/data/material.inc.glsl
 
 in vec4 p_Position;
 in vec4 p_Normal;
