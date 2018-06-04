@@ -26,20 +26,22 @@ public:
 
         dusk::App * app = dusk::App::Inst();
 
-        dusk::Shader * shader = app->AddShader(std::make_unique<dusk::Shader>(std::vector<std::string>({
+        dusk::Shader * shader = app->AddShader(std::make_unique<dusk::Shader>("main_shader", std::vector<std::string>({
             "shaders/textured.fs.glsl",
             "shaders/textured.vs.glsl"
         })));
 
         TrackCallback(app->OnUpdate.AddMember<GameScene>(this, &GameScene::Update));
 
-        dusk::Camera * camera = AddActor<dusk::Camera>(std::make_unique<dusk::Camera>("main_camera", this));
+        dusk::Camera * camera = AddCamera(std::make_unique<dusk::Camera>("main_camera", this));
         camera->SetAspect(app->GetWindowSize());
-        camera->SetPosition({ 3, 3, 3 });
-        camera->SetForward({ -1, -1, -1 });
+        camera->SetPosition({ 0, 0, 3 });
+        camera->SetLookAt({ 0, 0, 0 });
 
         actor = AddActor(std::make_unique<dusk::Actor>("main_actor", this));
-        actor->AddComponent(std::make_unique<dusk::MeshComponent>(actor, std::make_unique<dusk::Mesh>("models/globe/globe.obj")));
+
+        dusk::Mesh * mesh = dusk::AssetLoader::Load<dusk::Mesh>("models/sponza/sponza.obj");
+        actor->AddComponent(std::make_unique<dusk::MeshComponent>(actor, mesh));
 
         app->GetRenderContext().CurrentShader = shader;
         app->GetRenderContext().CurrentCamera = camera;
@@ -48,7 +50,7 @@ public:
     void Update(const dusk::UpdateContext& ctx)
     {
         glm::vec3 rot = actor->GetRotation();
-        rot.y += glm::radians(0.5f * ctx.DeltaTime);
+        rot.y -= glm::radians(0.5f * ctx.DeltaTime);
         rot.y = fmod(rot.y, M_PI * 2.0f);
         actor->SetRotation(rot);
     }

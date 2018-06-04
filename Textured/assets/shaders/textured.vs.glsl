@@ -18,10 +18,10 @@ void main()
     p_Normal   = _TransformData.Model * vec4(_Normal, 1.0);
     p_TexCoord = _TexCoord;
 
-    p_LightDir = vec3(3, 3, 3) - p_Position.xyz;
+    p_LightDir = vec3(0, 2, 3) - p_Position.xyz;
     p_LightDir = normalize(p_LightDir);
 
-    p_ViewDir = vec3(3, 3, 3) - p_Position.xyz;
+    p_ViewDir = vec3(0, 2, 3) - p_Position.xyz;
     p_ViewDir = normalize(p_ViewDir);
 
     gl_Position = _TransformData.MVP * vec4(_Position, 1.0);
