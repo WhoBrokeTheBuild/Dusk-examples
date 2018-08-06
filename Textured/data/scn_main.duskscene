@@ -1,0 +1,56 @@
+{
+    "Actors": [
+        {
+            "Components": [
+                {
+                    "File": "models/crate/crate.obj",
+                    "Type": "Mesh"
+                }
+            ],
+            "Id": "act_main",
+            "Position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "Rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "Scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    ],
+    "Cameras": [
+        {
+            "Aspect": 1.8897638320922852,
+            "Clip": [
+                0.10000000149011612,
+                1000.0
+            ],
+            "FOV": 45.0,
+            "Forward": [
+                0.0,
+                0.0,
+                -1.0
+            ],
+            "Id": "cam_main",
+            "Position": [
+                0.0,
+                0.0,
+                3.0
+            ],
+            "Up": [
+                0.0,
+                1.0,
+                0.0
+            ]
+        }
+    ],
+    "DefaultCamera": "cam_main",
+    "DefaultShader": "shd_main"
+}

@@ -1,5 +1,8 @@
 
+void LogInfo(string message) {
+    //DuskLogInfo(_ScriptHost, message);
+}
 
 void main() {
-    print("Working\n");
+    LogInfo("Working");
 }
